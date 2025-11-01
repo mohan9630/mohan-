@@ -1,80 +1,29 @@
-#include <iostream>
-using namespace std;
+import random
 
-#define SIZE 5  // Maximum size of the queue
+def number_guessing_game():
+    print("🎯 Welcome to the Number Guessing Game!")
+    print("I'm thinking of a number between 1 and 100.")
 
-class Queue {
-private:
-    int items[SIZE];
-    int front, rear;
+    # Generate random number
+    number_to_guess = random.randint(1, 100)
+    attempts = 0
 
-public:
-    Queue() {
-        front = -1;
-        rear = -1;
-    }
+    while True:
+        try:
+            guess = int(input("Enter your guess: "))
+            attempts += 1
 
-    // Check if the queue is full
-    bool isFull() {
-        return (rear == SIZE - 1);
-    }
+            if guess < number_to_guess:
+                print("Too low! Try again.")
+            elif guess > number_to_guess:
+                print("Too high! Try again.")
+            else:
+                print(f"🎉 Congratulations! You guessed it in {attempts} attempts!")
+                break
 
-    // Check if the queue is empty
-    bool isEmpty() {
-        return (front == -1 || front > rear);
-    }
+        except ValueError:
+            print("Please enter a valid number.")
 
-    // Enqueue operation
-    void enqueue(int value) {
-        if (isFull()) {
-            cout << "Queue is full. Cannot enqueue " << value << endl;
-        } else {
-            if (front == -1)  // first element
-                front = 0;
-            rear++;
-            items[rear] = value;
-            cout << value << " enqueued to queue." << endl;
-        }
-    }
-
-    // Dequeue operation
-    void dequeue() {
-        if (isEmpty()) {
-            cout << "Queue is empty. Cannot dequeue." << endl;
-        } else {
-            cout << items[front] << " dequeued from queue." << endl;
-            front++;
-        }
-    }
-
-    // Display all elements
-    void display() {
-        if (isEmpty()) {
-            cout << "Queue is empty." << endl;
-        } else {
-            cout << "Queue elements: ";
-            for (int i = front; i <= rear; i++)
-                cout << items[i] << " ";
-            cout << endl;
-        }
-    }
-};
-
-// Main function to test the queue
-int main() {
-    Queue q;
-    q.enqueue(10);
-    q.enqueue(20);
-    q.enqueue(30);
-    q.display();
-
-    q.dequeue();
-    q.display();
-
-    q.enqueue(40);
-    q.enqueue(50);
-    q.enqueue(60);  // This will show "Queue is full"
-    q.display();
-
-    return 0;
-}
+# Run the game
+if __name__ == "__main__":
+    number_guessing_game()
